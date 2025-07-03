@@ -7,7 +7,8 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-	"vera-mesh/discovery"
+
+	"github.com/vera-byte/vera-mesh.git/discovery"
 )
 
 func main() {

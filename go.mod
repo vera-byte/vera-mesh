@@ -1,4 +1,4 @@
-module vera-mesh
+module github.com/vera-byte/vera-mesh.git
 
 go 1.24.1
 

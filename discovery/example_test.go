@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	"vera-mesh/discovery"
+	"github.com/vera-byte/vera-mesh.git/discovery"
 )
 
 func Example_discovery() {
@@ -16,6 +16,7 @@ func Example_discovery() {
 	config := discovery.NewConfig()
 	config.ServiceName = "_myapp._tcp"
 	config.ServicePort = 8080
+	config.InstanceID, _ = os.Hostname()
 
 	// 创建发现管理器
 	manager, err := discovery.NewDiscoveryManager(*config)
