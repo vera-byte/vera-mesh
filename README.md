@@ -1,11 +1,13 @@
+```
 discovery/
 ├── discovery.go        // 主要接口和实现
 ├── config.go           // 配置结构
 ├── node.go             // 节点结构
 └── example_test.go     // 使用示例
+```
 
 
-功能特点
+# 功能特点
 主动状态宣告处理：
 
 收到包含 status=offline 的宣告立即标记节点为离线状态
