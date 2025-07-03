@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/vera-byte/vera-mesh.git/discovery"
+	"github.com/vera-byte/vera-mesh/discovery"
 )
 
 func Example_discovery() {
