@@ -26,6 +26,9 @@ type Config struct {
 	InstanceID   string         // 实例ID，默认为主机名+端口
 	Iface        *net.Interface // 网络接口，如果为nil则自动选择
 	LocalIP      net.IP         // 本地IP，如果为nil则自动选择
+	Version      string         // 版本号，默认为 "1.0"
+	NameSpace    string         // 名称空间，用于标识服务的唯一性
+	Log          *log.Logger    // 日志记录器，默认为自定义日志记录器
 }
 
 // NewConfig 创建默认配置
@@ -36,5 +39,9 @@ func NewConfig() *Config {
 		ScanInterval: 2 * time.Second,
 		NodeTimeout:  5 * time.Second,
 		AnnounceInt:  3 * time.Second,
+		Version:      "1.0",
+		NameSpace:    "default",
+		InstanceID:   "", // 默认为空，后续会自动设置为主机名+端口
+		Log:          logger,
 	}
 }

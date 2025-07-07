@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/mdns"
+	"github.com/vera-byte/mdns"
 )
 
 // EventHandler 节点事件处理函数
@@ -32,13 +32,13 @@ type DiscoveryManager struct {
 // NewDiscoveryManager 创建新的发现管理器
 func NewDiscoveryManager(config Config) (*DiscoveryManager, error) {
 	// 如果未提供实例ID，则生成默认
-	instanceID := config.InstanceID
-	if instanceID == "" {
+
+	if config.InstanceID == "" {
 		hostname, err := os.Hostname()
 		if err != nil {
 			hostname = "unknown-host"
 		}
-		instanceID = fmt.Sprintf("%s-%d", hostname, config.ServicePort)
+		config.InstanceID = fmt.Sprintf("%s-%d", hostname, config.ServicePort)
 	}
 
 	// 获取网络信息
@@ -55,9 +55,9 @@ func NewDiscoveryManager(config Config) (*DiscoveryManager, error) {
 
 	// 初始化宣告TXT记录
 	announceTxt := []string{
-		"app=mdns-demo",
-		"version=1.0",
-		"hostname=" + instanceID,
+		config.NameSpace,
+		"version=" + config.Version,
+		"hostname=" + config.InstanceID,
 	}
 
 	return &DiscoveryManager{
@@ -294,9 +294,9 @@ func (m *DiscoveryManager) startDiscovery() {
 		for !m.shutdown {
 			params := mdns.DefaultParams(m.config.ServiceName)
 			params.Entries = m.discoveryCh
-			params.DisableIPv6 = true
 			params.Timeout = m.config.ScanInterval / 2
 			params.Interface = m.iface
+			params.DisableIPv6 = false
 
 			_ = mdns.Query(params)
 			time.Sleep(m.config.ScanInterval)
@@ -336,7 +336,7 @@ func (m *DiscoveryManager) processEntries() {
 		// 检查应用标识
 		hasAppIdentifier := false
 		for _, info := range entry.InfoFields {
-			if info == "app=mdns-demo" {
+			if info == m.config.NameSpace {
 				hasAppIdentifier = true
 				break
 			}

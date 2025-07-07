@@ -1,17 +1,17 @@
 package discovery_test
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
+	"testing"
 	"time"
 
 	"github.com/vera-byte/vera-mesh/discovery"
 )
 
-func Example_discovery() {
+func Test_discovery(t testing.T) {
 	// 创建配置
 	config := discovery.NewConfig()
 	config.ServiceName = "_myapp._tcp"
@@ -40,9 +40,9 @@ func Example_discovery() {
 		ticker := time.NewTicker(5 * time.Second)
 		for range ticker.C {
 			nodes := manager.GetNodes()
-			fmt.Println("\n当前节点列表:")
+			config.Log.Println("\n当前节点列表:")
 			for _, node := range nodes {
-				fmt.Printf("- %s (%s:%d) [%s] 最后活跃: %v\n",
+				config.Log.Printf("- %s (%s:%d) [%s] 最后活跃: %v\n",
 					node.Instance,
 					node.IP,
 					node.Port,
@@ -56,5 +56,5 @@ func Example_discovery() {
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
 	<-sigCh
-	log.Println("正在关闭...")
+	t.Log("正在关闭...")
 }

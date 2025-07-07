@@ -1,14 +1,14 @@
 module github.com/vera-byte/vera-mesh
 
-go 1.24.1
+go 1.23.0
 
-require github.com/hashicorp/mdns v1.0.6
+require github.com/vera-byte/mdns v0.0.1
 
 require (
-	github.com/miekg/dns v1.1.55 // indirect
-	golang.org/x/mod v0.17.0 // indirect
-	golang.org/x/net v0.34.0 // indirect
-	golang.org/x/sync v0.10.0 // indirect
-	golang.org/x/sys v0.29.0 // indirect
-	golang.org/x/tools v0.21.1-0.20240508182429-e35e4ccd0d2d // indirect
+	github.com/miekg/dns v1.1.66 // indirect
+	golang.org/x/mod v0.25.0 // indirect
+	golang.org/x/net v0.41.0 // indirect
+	golang.org/x/sync v0.15.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
+	golang.org/x/tools v0.33.0 // indirect
 )
